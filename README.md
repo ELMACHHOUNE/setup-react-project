@@ -1,121 +1,153 @@
 # Mohamed EL MACHHOUNE — Portfolio
 
-A modern, responsive personal portfolio website built with **React 19**, **Vite**, **Tailwind CSS v4**, and **shadcn/ui** (Base UI Nova style). The project is structured around a single-page layout with dedicated sections for About, Experience, Education, and Projects.
+A premium, multi-page developer portfolio built with **React 19**, **Vite 8**, **Tailwind CSS v4**, **shadcn/ui** (Base UI) and **Aceternity UI**. It presents the professional identity of a Software Engineer / Full Stack Developer with a dark-first, minimal, developer-oriented design.
 
 ## Tech Stack
 
-| Layer        | Technology                                              |
-| ------------ | ------------------------------------------------------- |
-| UI           | [React](https://react.dev) 19 + JSX                     |
-| Build tool   | [Vite](https://vite.dev) 8                              |
-| Styling      | [Tailwind CSS](https://tailwindcss.com) v4              |
-| Components   | [shadcn/ui](https://ui.shadcn.com) (Base UI style)      |
-| Primitives   | [Base UI](https://base-ui.com) (`@base-ui/react`)       |
-| Icons        | [lucide-react](https://lucide.dev)                      |
-| Font         | [Geist Variable](https://vercel.com/font) via Fontsource |
-| Utilities    | `class-variance-authority`, `clsx`, `tailwind-merge`    |
-| Linting      | [oxlint](https://oxc.rs/docs/guide/usage/linter.html)   |
+| Layer         | Technology                                                                 |
+| ------------- | -------------------------------------------------------------------------- |
+| UI            | [React](https://react.dev) 19 + JSX                                         |
+| Routing       | [React Router](https://reactrouter.com) 7 (`react-router-dom`)              |
+| Build tool    | [Vite](https://vite.dev) 8                                                  |
+| Styling       | [Tailwind CSS](https://tailwindcss.com) v4 (CSS variables, OKLCH tokens)    |
+| Components    | [shadcn/ui](https://ui.shadcn.com) + [Base UI](https://base-ui.com)         |
+| Effects       | [Aceternity UI](https://ui.aceternity.com) components + [Motion](https://motion.dev) |
+| Icons         | [lucide-react](https://lucide.dev) + [@tabler/icons-react](https://tabler.io/icons) |
+| Font          | [Geist Variable](https://vercel.com/font) via Fontsource                    |
+| Utilities     | `class-variance-authority`, `clsx`, `tailwind-merge`                        |
+| Linting       | [oxlint](https://oxc.rs/docs/guide/usage/linter.html)                       |
 
 ## Getting Started
 
 ### Prerequisites
 
-- **Node.js** 20+ (Vite 8 requirement)
+- **Node.js** 20+
 - **npm** (or your preferred package manager)
 
-### Installation
+### Install
 
 ```bash
 npm install
 ```
 
-### Development
+### Scripts
 
-```bash
-npm run dev
-```
+| Command            | Description                                        |
+| ------------------ | -------------------------------------------------- |
+| `npm run dev`      | Start the Vite dev server with HMR                 |
+| `npm run build`    | Build for production into `dist/`                  |
+| `npm run preview`  | Preview the production build                       |
+| `npm run lint`     | Lint the codebase with oxlint (React rules)        |
 
-Starts the Vite dev server with hot module replacement (HMR).
+## Routes
 
-### Build
+| Route         | Page                                   |
+| ------------- | -------------------------------------- |
+| `/`           | Home — hero + tech stack + previews + CTA |
+| `/about`      | About — profile, philosophy, skills    |
+| `/experience` | Experience — chronological timeline    |
+| `/education`  | Education — degrees & certifications   |
+| `/projects`   | Projects — Aceternity Carousel         |
+| `/contact`    | Contact — validated contact form       |
 
-```bash
-npm run build
-```
+All routes except `/` are lazy-loaded via `React.lazy` and wrapped in `Suspense`. A 404 fallback is provided for unknown paths.
 
-Produces an optimized production bundle in the `dist/` folder.
+## Highlights
 
-### Preview
-
-```bash
-npm run preview
-```
-
-Serves the production build locally to verify it before deploying.
-
-### Lint
-
-```bash
-npm run lint
-```
-
-Runs oxlint (fast, Rust-based) with React plugin rules for hooks and component exports.
+- **Aceternity Keyboard** — full interactive Mac-style keyboard (with sound) is the key visual element of the hero; press any key on the home page.
+- **Aceternity Carousel** — featured projects showcase with parallax tilt, project images, tech badges and GitHub / Live Demo buttons.
+- **Spotlight** effect and subtle scroll-reveal animations (motion) that respect `prefers-reduced-motion`.
+- **Dark/light mode** — dark is the default, persisted in `localStorage`, applied before paint to avoid FOUC.
+- **Fully responsive** with a Base UI `Sheet` mobile navigation.
+- **Data-driven** — all content (projects, experience, education, skills, social links) lives in `src/data/`, separate from the UI.
 
 ## Project Structure
 
 ```
 portfolio-react-new/
 ├── public/
-│   └── icon.png                    # Site favicon
+│   ├── icon.png                      # Favicon
+│   └── sounds/                       # Keyboard mechanical-key sound sprite
+│       ├── sound.ogg
+│       └── config.json
 ├── src/
-│   ├── App.jsx                     # Root app component (page composition)
-│   ├── main.jsx                    # Entry point — mounts React into #root
-│   ├── index.css                   # Tailwind import + theme tokens (light/dark)
+│   ├── App.jsx                       # Router: BrowserRouter, Routes, lazy pages
+│   ├── main.jsx                      # Entry point — mounts React into #root
+│   ├── index.css                     # Tailwind v4 theme (light/dark tokens, accent)
 │   ├── components/
-│   │   ├── Layout.jsx              # Shared layout wrapper (Navbar + page + Footer)
-│   │   ├── Navbar.jsx              # Top navigation bar
-│   │   ├── Footer.jsx              # Site footer
-│   │   └── ui/                     # shadcn/ui primitives
-│   │       ├── button.jsx          # Button with variants & sizes
-│   │       ├── card.jsx            # Card + Header/Title/Description/Action/Content/Footer
-│   │       ├── input.jsx           # Text input field
-│   │       └── label.jsx           # Form label
-│   ├── pages/                      # One file per portfolio section
-│   │   ├── Home.jsx                # Hero / landing section
-│   │   ├── About.jsx               # About me
-│   │   ├── Experience.jsx          # Work history timeline
-│   │   ├── Education.jsx           # Education & certifications
-│   │   └── Projects.jsx            # Featured projects
-│   └── lib/
-│       └── utils.js                # cn() helper (clsx + tailwind-merge)
-├── index.html                      # HTML entry, loads src/main.jsx
-├── components.json                 # shadcn/ui configuration
-├── jsconfig.json                   # Path alias @/* → src/*
-├── vite.config.js                  # Vite config: React, Tailwind, @ alias
-├── .oxlintrc.json                  # oxlint rules (react plugin)
+│   │   ├── layout/
+│   │   │   ├── Layout.jsx            # Shell: Navbar + Outlet + Footer + ScrollToTop
+│   │   │   ├── Navbar.jsx            # Sticky navbar, blur, active route indicator
+│   │   │   ├── MobileNavigation.jsx  # Base UI Sheet menu (mobile)
+│   │   │   ├── Footer.jsx            # Brand, nav, social links, dynamic year
+│   │   │   ├── ThemeToggle.jsx       # Dark/light switch
+│   │   │   └── PageHeader.jsx        # Reusable inner-page header
+│   │   ├── sections/
+│   │   │   ├── Hero.jsx              # Name, role cycler, CTA, socials + Keyboard
+│   │   │   ├── TechStack.jsx         # Skill groups as badge cards
+│   │   │   ├── FeaturedProjects.jsx  # 3 featured project cards
+│   │   │   ├── ExperiencePreview.jsx # Home career teaser
+│   │   │   ├── EducationPreview.jsx  # Home education teaser
+│   │   │   └── CTA.jsx               # Call-to-action banner
+│   │   ├── projects/
+│   │   │   └── ProjectCard.jsx       # Reusable project card
+│   │   └── ui/                       # shadcn/ui + Aceternity primitives
+│   │       ├── button.jsx
+│   │       ├── badge.jsx
+│   │       ├── card.jsx
+│   │       ├── input.jsx
+│   │       ├── label.jsx
+│   │       ├── textarea.jsx
+│   │       ├── separator.jsx
+│   │       ├── sheet.jsx
+│   │       ├── tooltip.jsx
+│   │       ├── keyboard.jsx          # Aceternity Keyboard
+│   │       ├── carousel.jsx          # Aceternity Carousel (project slides)
+│   │       ├── spotlight.jsx         # Aceternity Spotlight
+│   │       └── Reveal.jsx            # Scroll reveal wrapper (motion)
+│   ├── data/                         # Content lives here — edit to update site
+│   │   ├── social.js                 # Identity, roles, GitHub/LinkedIn/Email
+│   │   ├── skills.js                 # Skill groups
+│   │   ├── projects.js               # Projects (+ generated SVG placeholders)
+│   │   ├── experience.js             # Work history
+│   │   └── education.js              # Education & certifications
+│   ├── lib/
+│   │   ├── utils.js                  # cn() helper (clsx + tailwind-merge)
+│   │   └── theme.js                  # useTheme hook (persisted dark/light)
+│   └── pages/
+│       ├── Home.jsx
+│       ├── About.jsx
+│       ├── Experience.jsx
+│       ├── Education.jsx
+│       ├── Projects.jsx
+│       └── Contact.jsx
+├── index.html                        # SEO metadata, theme bootstrap script
+├── components.json                   # shadcn/ui configuration
+├── jsconfig.json                     # Path alias @/* → src/*
+├── vite.config.js                    # Vite config: React, Tailwind, @ alias
+├── .oxlintrc.json                    # oxlint rules (react plugin)
 └── package.json
 ```
 
 ### Key conventions
 
-- **Path alias**: `@/` resolves to `src/` (configured in both `vite.config.js` and `jsconfig.json`). Use `import { cn } from "@/lib/utils"`.
-- **Styling**: All theme colors are CSS variables in `src/index.css` under `:root` and `.dark`, mapped to Tailwind tokens via `@theme inline`. Toggle dark mode by adding the `.dark` class on an ancestor element.
-- **UI components**: Reusable primitives live in `src/components/ui/` and are generated/managed via shadcn CLI (`npx shadcn@latest add ...`).
-- **Pages**: Each portfolio section is its own component under `src/pages/`, rendered inside `Layout` through `App`.
+- **Path alias**: `@/` resolves to `src/` (configured in `vite.config.js` and `jsconfig.json`). Import with `import { cn } from "@/lib/utils"`.
+- **Content is data**: never hardcode portfolio content in JSX. Edit the files in `src/data/` to update projects, experience, education, skills or social links.
+- **Placeholders over fabrication**: any missing professional data (companies, dates, links, images) is shown as a clearly marked placeholder rather than invented. Swap them with real values in `src/data/`.
+- **Theming**: color tokens are CSS variables in `src/index.css` (`:root` / `.dark`), mapped to Tailwind via `@theme inline`. Dark mode is the default.
+- **Base UI rendering**: `Button` renders a native `<button>` by default; when composing it as a link pass `nativeButton={false}` and a `render` prop, e.g. `render={<Link to="/projects" />}`.
+- **Reusable UI**: add shadcn components with `npx shadcn@latest add <component>`; they land in `src/components/ui/`.
 
-## Adding a shadcn/ui component
+## Customizing Your Content
 
-```bash
-npx shadcn@latest add button
-```
+1. **Identity & socials** — `src/data/social.js` (name, roles, GitHub/LinkedIn/Email, location).
+2. **Skills** — `src/data/skills.js` (grouped badge lists).
+3. **Projects** — `src/data/projects.js` (title, description, image, technologies, github, demo, featured). Without an image, a themed SVG placeholder is generated automatically.
+4. **Experience** — `src/data/experience.js` (company, role, period, location, description, technologies).
+5. **Education** — `src/data/education.js` (institution, degree, period, description, technologies).
 
-New components are written to `src/components/ui/` and registered in `components.json`.
+## Notes
 
-## Scripts Summary
-
-| Command            | Description                              |
-| ------------------ | ---------------------------------------- |
-| `npm run dev`      | Start development server                 |
-| `npm run build`    | Build for production into `dist/`        |
-| `npm run preview`  | Preview the production build             |
-| `npm run lint`     | Lint the codebase with oxlint            |
+- Keyboard sounds load from `/sounds/sound.ogg`; the hero enables them, with a graceful no-op if the file is missing.
+- Route pages are code-split for performance; the main bundle stays lean.
+- No backend is required — the contact form performs client-side validation only.
