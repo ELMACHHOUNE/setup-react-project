@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Mail, Command } from "lucide-react";
@@ -6,10 +6,24 @@ import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Keyboard } from "@/components/ui/keyboard";
 import { Spotlight } from "@/components/ui/spotlight";
-import { cn } from "@/lib/utils";
+import {
+  ScrollVelocityContainer,
+  ScrollVelocityRow,
+} from "@/components/ui/scroll-based-velocity";
 import { identity, socialLinks } from "@/data/social";
 
 const roles = identity.roles;
+
+const velocityTech = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "MongoDB",
+  "OpenAI",
+  "Gemini",
+  "Docker",
+  "Vercel",
+];
 
 const socials = [
   { label: "GitHub", href: socialLinks.github, Icon: IconBrandGithub },
@@ -39,10 +53,10 @@ function RoleCycler() {
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative flex min-h-svh flex-col justify-between overflow-hidden">
       <Spotlight className="left-[-20%] top-[-10%]" />
 
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8 lg:pb-24 lg:pt-20">
+      <div className="mx-auto grid w-full max-w-6xl flex-1 items-center gap-14 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8 lg:pb-20 lg:pt-20">
         <div className="order-2 lg:order-1">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -153,12 +167,42 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <div
-        aria-hidden="true"
-        className={cn(
-          "pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent",
-        )}
-      />
+      <ScrollVelocityContainer className="relative z-10 pb-10">
+        <ScrollVelocityRow baseVelocity={6} direction={1}>
+          <div className="flex items-center">
+            {roles.map((role) => (
+              <Fragment key={role}>
+                <span className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                  {role}
+                </span>
+                <span className="mx-6 text-2xl text-accent sm:text-4xl">
+                  ✦
+                </span>
+              </Fragment>
+            ))}
+          </div>
+        </ScrollVelocityRow>
+        <ScrollVelocityRow baseVelocity={6} direction={-1}>
+          <div className="flex items-center">
+            {velocityTech.map((tech) => (
+              <Fragment key={tech}>
+                <span className="font-mono text-lg uppercase tracking-[0.3em] text-muted-foreground sm:text-2xl">
+                  {tech}
+                </span>
+                <span className="mx-6 text-muted-foreground/30">/</span>
+              </Fragment>
+            ))}
+          </div>
+        </ScrollVelocityRow>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-background to-transparent sm:w-32"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent sm:w-32"
+        />
+      </ScrollVelocityContainer>
     </section>
   );
 }
