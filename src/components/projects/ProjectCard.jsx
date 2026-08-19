@@ -1,6 +1,6 @@
 import { ExternalLinkIcon, Folder } from "lucide-react";
 import { IconBrandGithub } from "@tabler/icons-react";
-import { Badge } from "@/components/ui/badge";
+import { TechBadge } from "@/components/ui/TechBadge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -49,9 +49,12 @@ export function ProjectCard({ project, className }) {
         </p>
         <div className="mt-4 flex flex-wrap gap-1.5">
           {project.technologies.map((tech) => (
-            <Badge key={tech} variant="outline" className="text-[11px]">
-              {tech}
-            </Badge>
+            <TechBadge
+              key={tech}
+              tech={tech}
+              variant="outline"
+              className="text-[11px]"
+            />
           ))}
         </div>
         <div className="mt-5 flex items-center gap-2">

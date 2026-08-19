@@ -1,7 +1,7 @@
 import { GraduationCap, Calendar, Award } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
-import { Badge } from "@/components/ui/badge";
+import { TechBadge } from "@/components/ui/TechBadge";
 import { Card, CardContent } from "@/components/ui/card";
 import { CTA } from "@/components/sections/CTA";
 import { education, educationPlaceholder } from "@/data/education";
@@ -57,9 +57,7 @@ export default function Education() {
                       {item.technologies?.length > 0 && (
                         <div className="mt-4 flex flex-wrap gap-1.5">
                           {item.technologies.map((tech) => (
-                            <Badge key={tech} variant="outline">
-                              {tech}
-                            </Badge>
+                            <TechBadge key={tech} tech={tech} variant="outline" />
                           ))}
                         </div>
                       )}

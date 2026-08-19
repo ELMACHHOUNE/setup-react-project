@@ -1,6 +1,6 @@
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Reveal } from "@/components/ui/Reveal";
+import { TechBadge } from "@/components/ui/TechBadge";
 import { skillGroups } from "@/data/skills";
 import { cn } from "@/lib/utils";
 
@@ -40,9 +40,7 @@ export function TechStack() {
               </CardHeader>
               <CardContent className="flex flex-wrap gap-1.5">
                 {group.skills.map((skill) => (
-                  <Badge key={skill} variant="secondary">
-                    {skill}
-                  </Badge>
+                  <TechBadge key={skill} tech={skill} variant="secondary" />
                 ))}
               </CardContent>
             </Card>

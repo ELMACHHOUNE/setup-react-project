@@ -1,6 +1,6 @@
 import { IconArrowNarrowRight, IconBrandGithub } from "@tabler/icons-react";
 import { useState, useRef, useId, useEffect } from "react";
-import { Badge } from "@/components/ui/badge";
+import { TechBadge } from "@/components/ui/TechBadge";
 import { Button } from "@/components/ui/button";
 import { ExternalLinkIcon } from "lucide-react";
 
@@ -100,9 +100,12 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
           </p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5">
             {technologies.map((tech) => (
-              <Badge key={tech} variant="secondary" className="bg-white/10 text-white hover:bg-white/15">
-                {tech}
-              </Badge>
+              <TechBadge
+                key={tech}
+                tech={tech}
+                variant="secondary"
+                className="bg-white/10 text-white hover:bg-white/15"
+              />
             ))}
           </div>
           <div className="mt-6 flex items-center justify-center gap-3">

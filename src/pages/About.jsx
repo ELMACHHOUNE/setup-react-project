@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { TechBadge } from "@/components/ui/TechBadge";
 import { CTA } from "@/components/sections/CTA";
 import { identity } from "@/data/social";
 import { skillGroups } from "@/data/skills";
@@ -126,9 +127,7 @@ export default function About() {
                 </CardHeader>
                 <CardContent className="flex flex-wrap gap-1.5">
                   {group.skills.map((skill) => (
-                    <Badge key={skill} variant="outline">
-                      {skill}
-                    </Badge>
+                    <TechBadge key={skill} tech={skill} variant="outline" />
                   ))}
                 </CardContent>
               </Card>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { TechBadge } from "@/components/ui/TechBadge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Reveal } from "@/components/ui/Reveal";
 import { experience, experiencePlaceholder } from "@/data/experience";
@@ -58,9 +58,12 @@ export function ExperiencePreview() {
                   {item.technologies?.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-1.5">
                       {item.technologies.map((tech) => (
-                        <Badge key={tech} variant="outline" className="text-[11px]">
-                          {tech}
-                        </Badge>
+                        <TechBadge
+                          key={tech}
+                          tech={tech}
+                          variant="outline"
+                          className="text-[11px]"
+                        />
                       ))}
                     </div>
                   )}
